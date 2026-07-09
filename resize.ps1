@@ -38,12 +38,9 @@ if (-not (Test-Path $OutDir)) {
 
 # --- 出力先フォルダ内の既存画像を削除（オプション） ---
 if ($doClear) {
-    Write-Host "出力先フォルダ内の既存の画像を削除しています..."
-    $imageExtPatterns = @('*.png', '*.jpg', '*.jpeg', '*.bmp', '*.gif')
-    foreach ($pattern in $imageExtPatterns) {
-        Get-ChildItem -Path $OutDir -Filter $pattern -File -ErrorAction SilentlyContinue |
-            Remove-Item -Force -ErrorAction SilentlyContinue
-    }
+    Write-Host "出力先フォルダ内の既存のPNG画像を削除しています..."
+    Get-ChildItem -Path $OutDir -Filter *.png -File -ErrorAction SilentlyContinue |
+        Remove-Item -Force -ErrorAction SilentlyContinue
     Write-Host "削除が完了しました。"
     Write-Host ""
 }

@@ -24,6 +24,19 @@ if not exist "%~dp0resize.ps1" (
     exit /b 1
 )
 
+REM --- 出力先フォルダが初期値のままの場合は書き換えを案内して終了 ---
+if /i "%OUTPUT_DIR%"=="C:\Users\YourName\Desktop\output" (
+    echo 出力先フォルダが初期設定のままです。
+    echo このbatファイルをテキストエディタで開き、先頭付近の
+    echo   set "OUTPUT_DIR=C:\Users\YourName\Desktop\output"
+    echo の行を、実際に使用したい出力先フォルダのパスに書き換えてから
+    echo 再度実行してください。
+    echo.
+    echo 何かキーを押すと終了します。
+    pause >nul
+    exit /b 1
+)
+
 REM --- ドラッグ&ドロップされていない場合は案内して終了 ---
 if "%~1"=="" (
     echo 拡大したいPNGファイル、またはPNG画像が入ったフォルダを
@@ -53,7 +66,7 @@ echo ===================================================
 echo.
 
 set "CLEAR_ANSWER="
-set /p "CLEAR_ANSWER=処理開始前に出力先フォルダ内の画像を全て削除しますか？ (y/n): "
+set /p "CLEAR_ANSWER=処理開始前に出力先フォルダ内のPNG画像を全て削除しますか？ (y/n): "
 if /i "%CLEAR_ANSWER%"=="y" (
     set "CLEAR_FLAG=1"
 ) else (
